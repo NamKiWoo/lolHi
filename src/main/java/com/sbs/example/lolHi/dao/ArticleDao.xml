@@ -7,5 +7,10 @@
 		select *
 		from article
 	</select>
-
+	
+	<select id="getArticleById" resultType="article">
+		select *
+		from article
+		where id = #{id}
+	</select>
 </mapper>
