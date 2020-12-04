@@ -13,4 +13,9 @@
 		from article
 		where id = #{id}
 	</select>
+	
+	<delete id="deleteArticleById">
+		delete from article
+		where id = #{id}		
+	</delete>
 </mapper>

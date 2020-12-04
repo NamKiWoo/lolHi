@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sbs.example.lolHi.dto.Article;
 import com.sbs.example.lolHi.service.ArticleService;
@@ -34,6 +35,17 @@ public class ArticleController {
 		model.addAttribute("article", article);
 		
 		return "usr/article/detail";
+	}
+	
+	@RequestMapping("/usr/article/doDelete")
+	@ResponseBody
+	public String doDelete(int id) {
+		
+		articleService.deleteArticleById(id);		
+				
+		//location.href 는 백스페이스를 누르면 삭제 페이지로 이동, location.replace로 해야된다.
+		return String.format("<script>alert('%d번 글을 삭제하였습니다.'); location.replace('/usr/article/list') </script>",id);
+		
 	}
 
 }

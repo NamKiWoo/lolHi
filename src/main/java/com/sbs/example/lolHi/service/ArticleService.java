@@ -23,4 +23,9 @@ public class ArticleService {
 		return articleDao.getArticleById(id);
 	}
 
+	public void deleteArticleById(int id) {
+		// TODO Auto-generated method stub
+		articleDao.deleteArticleById(id);
+	}
+
 }

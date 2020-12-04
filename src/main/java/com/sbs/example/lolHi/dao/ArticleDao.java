@@ -13,4 +13,6 @@ public interface ArticleDao {
 	Article getArticleById(@Param("id") int id);
 
 	List<Article> getArticles();
+
+	void deleteArticleById(@Param("id") int id);
 }
