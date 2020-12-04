@@ -23,9 +23,15 @@ public class ArticleService {
 		return articleDao.getArticleById(id);
 	}
 
-	public void deleteArticleById(int id) {
+	public void deleteArticle(int id) {
 		// TODO Auto-generated method stub
-		articleDao.deleteArticleById(id);
+		articleDao.deleteArticle(id);
+	}
+
+	public void modifyArticle(int id, String title, String body) {
+		// TODO Auto-generated method stub
+		articleDao.modifyArticle(id, title, body);
+		
 	}
 
 }

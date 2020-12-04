@@ -41,10 +41,21 @@ public class ArticleController {
 	@ResponseBody
 	public String doDelete(int id) {
 		
-		articleService.deleteArticleById(id);		
+		articleService.deleteArticle(id);		
 				
 		//location.href 는 백스페이스를 누르면 삭제 페이지로 이동, location.replace로 해야된다.
 		return String.format("<script>alert('%d번 글을 삭제하였습니다.'); location.replace('/usr/article/list') </script>",id);
+		
+	}
+	
+	@RequestMapping("/usr/article/doModify")
+	@ResponseBody
+	public String doModify(int id, String title, String body) {
+		
+		articleService.modifyArticle(id, title, body);		
+				
+		//location.href 는 백스페이스를 누르면 삭제 페이지로 이동, location.replace로 해야된다.
+		return String.format("<script>alert('%d번 게시글을 수정하였습니다.'); location.replace('/usr/article/detail?id=%d') </script>",id,id);
 		
 	}
 
