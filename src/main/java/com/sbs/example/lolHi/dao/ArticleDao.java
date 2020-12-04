@@ -1,6 +1,7 @@
 package com.sbs.example.lolHi.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -17,4 +18,6 @@ public interface ArticleDao {
 	void deleteArticle(@Param("id") int id);	
 
 	void modifyArticle(@Param("id")  int id, @Param("title")  String title, @Param("body") String body);
+
+	void writeArticle(Map<String, Object> param);
 }

@@ -32,4 +32,17 @@
 		</set>
 		where id = #{id}
 	</update>
+	
+	<insert id="writeArticle" useGeneratedKeys="true" keyProperty="id">
+		insert into article
+		<set> 
+			regDate = NOW(), updateDate = NOW(),
+		    <if test="title !=null">
+				title = #{title},
+			</if>
+			<if test="body !=null">
+				body = #{body},
+			</if>
+		</set>
+	</insert>
 </mapper>
