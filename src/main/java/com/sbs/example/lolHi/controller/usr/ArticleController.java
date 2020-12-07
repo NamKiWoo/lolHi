@@ -61,6 +61,13 @@ public class ArticleController {
 		
 	}
 	
+	@RequestMapping("/usr/article/write")
+	public String showWrite() {
+		
+		return "usr/article/write";
+		
+	}
+	
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
 	public String doWrite(@RequestParam Map<String, Object> param) {
