@@ -1,6 +1,5 @@
 package com.sbs.example.lolHi.service;
 
-import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 
@@ -16,9 +15,24 @@ public class ArticleService {
 	@Autowired
 	private ArticleDao articleDao;
 
-	public List<Article> getArticles() {
+	public List<Article> getArticles(Map<String, Object> param) {
 		// TODO Auto-generated method stub
-		return articleDao.getArticles();
+		//페이지 수 가져오기
+		int page = Util.getAsInt(param.get("page"));
+		if(page == -1) {
+			page = 1;
+		}
+		
+		//한페이지에 표시할 개수
+		int itemsCountInAPage = 10;
+		
+		int limitFrom = (page-1) * itemsCountInAPage;
+		int limitTake = itemsCountInAPage;
+		
+		param.put("limitFrom", limitFrom);
+		param.put("limitTake", limitTake);
+		
+		return articleDao.getArticles(param);
 	}
 
 	public Article getArticleById(int id) {

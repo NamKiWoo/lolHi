@@ -15,6 +15,9 @@ public class Util {
 		else if(object instanceof Integer) {
 			return (int)object;
 		}
+		else if(object instanceof String) {
+			return Integer.parseInt((String)object);
+		}
 		
 		return -1;
 	}

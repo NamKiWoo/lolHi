@@ -13,7 +13,7 @@ public interface ArticleDao {
 
 	Article getArticleById(@Param("id") int id);
 
-	List<Article> getArticles();
+	List<Article> getArticles(Map<String, Object> param);
 
 	void deleteArticle(@Param("id") int id);	
 

@@ -6,6 +6,10 @@
 	<select id="getArticles" resultType="article">
 		select *
 		from article
+		order by id DESC
+		<if test="limitFrom != null and limitTake !=null">
+			limit #{limitFrom}, #{limitTake}
+		</if>
 	</select>
 	
 	<select id="getArticleById" resultType="article">
