@@ -50,6 +50,15 @@ public class ArticleController {
 		
 	}
 	
+	@RequestMapping("/usr/article/modify")	
+	public String showModify(Model model, int id) {
+		
+		Article article = articleService.getArticleById(id);
+		model.addAttribute("article", article);
+		
+		return "usr/article/modify";		
+	}
+	
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
 	public String doModify(int id, String title, String body) {
