@@ -18,13 +18,16 @@ public class ArticleService {
 	public List<Article> getArticles(Map<String, Object> param) {
 		// TODO Auto-generated method stub
 		//페이지 수 가져오기
-		int page = Util.getAsInt(param.get("page"));
-		if(page == -1) {
-			page = 1;
-		}
-		
+		int page = Util.getAsInt(param.get("page"),1);
+				
 		//한페이지에 표시할 개수
-		int itemsCountInAPage = 10;
+		int itemsCountInAPage = Util.getAsInt(param.get("itemsCountInAPage"),10);
+		
+		if(itemsCountInAPage > 100) {
+			itemsCountInAPage = 100;
+		} else if (itemsCountInAPage < 1) {
+			itemsCountInAPage = 10;
+		} 
 		
 		int limitFrom = (page-1) * itemsCountInAPage;
 		int limitTake = itemsCountInAPage;

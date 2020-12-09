@@ -6,6 +6,12 @@ public class Util {
 
 	public static int getAsInt(Object object) {
 		// TODO Auto-generated method stub
+		return getAsInt(object, -1);
+	}
+
+	public static int getAsInt(Object object, int defaultValue) {
+		// TODO Auto-generated method stub
+		
 		if(object instanceof BigInteger) {
 			return ((BigInteger)object).intValue();
 		}
@@ -17,9 +23,9 @@ public class Util {
 		}
 		else if(object instanceof String) {
 			return Integer.parseInt((String)object);
-		}
+		}	
 		
-		return -1;
+		return defaultValue;
 	}
 
 }

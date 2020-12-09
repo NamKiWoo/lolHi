@@ -33,6 +33,9 @@
 		<div>
 			수정 : <input type="submit" value="작성" />
 		</div>
+		<div>
+			리스트 : <a href="list">리스트</a>
+		</div>
 	</form>
 
 </body>
