@@ -20,12 +20,16 @@ public class ArticleController {
 
 	@RequestMapping("/usr/article/list")	
 	public String showList(Model model, @RequestParam Map<String, Object> param) {
-				
-		List<Article> articles = articleService.getArticles(param);		
 		
 		int totalCount = articleService.getTotalCount();
+		int itemsCountInAPage = 10;
+		int totalPage = (int)Math.ceil(totalCount / (double)itemsCountInAPage);
+		
+		param.put("itemsCountInAPage", itemsCountInAPage);
+		List<Article> articles = articleService.getArticles(param);		
 		
 		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("articles", articles);
 		
 		return "usr/article/list";
