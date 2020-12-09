@@ -34,14 +34,38 @@
 
 	<div>
 		<a href="write">글쓰기</a>
-	<h2>페이지</h2>
-	</div>
-		<c:forEach var="i" begin="1" end="${totalPage}">
-			<a href="?page=${i}">${i}</a>
-		</c:forEach>
-	<div>
-		
 	</div>
 	
+	<style>
+		.selected {
+			color:red;
+		}
+	</style>
+	<h2>페이지</h2>
+	<div>
+		<!-- 첫 페이지로 이동버튼이 노출될 필요가 있는지 여부 -->
+		<c:set var="goFirstBtnNeedToShow" value="${page > pageMenuArmSize +1}" />
+		<!-- 마지막 페이지로 이동버튼이 노출될 필요가 있는지 여부 -->
+		<c:set var="goLastBtnNeedToShow" value="true" />
+		
+		<!-- 첫 페이지로 이동버튼이 노출될 필요가 있다면 노출 -->
+		<c:if test="${goFirstBtnNeedToShow}">
+			<a href="?page=1">◀</a>
+		</c:if>
+		<c:forEach var="i" begin="${pageMenuStart}" end="${pageMenuEnd}">
+			<c:set var="className" value="${i == page ? 'selected' : '' }" />
+			<a class="${className}" href="?page=${i}">${i}</a>
+			
+			<c:if test="${i == totalPage}">
+				<c:set var="goLastBtnNeedToShow" value="false" />
+			</c:if>
+		</c:forEach>
+		
+		<!-- 마지막 페이지로 이동버튼이 노출될 필요가 있다면 노출 -->
+		<c:if test="${goLastBtnNeedToShow}">
+			<a href="?page=${totalPage}">▶</a>
+		</c:if>
+	</div>
+		
 </body>
 </html>
