@@ -66,4 +66,9 @@ public class ArticleService {
 		return id;
 	}
 
+	public int getTotalCount() {
+		// TODO Auto-generated method stub
+		return articleDao.getTotalCount();
+	}
+
 }

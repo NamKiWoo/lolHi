@@ -23,6 +23,9 @@ public class ArticleController {
 				
 		List<Article> articles = articleService.getArticles(param);		
 		
+		int totalCount = articleService.getTotalCount();
+		
+		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("articles", articles);
 		
 		return "usr/article/list";
