@@ -9,9 +9,57 @@
 <body>
 	
 	<h1>회원 가입</h1>
-	<hr />
+	<script>
+		var joinFormSubmitDone = false;
+		function joinFormSubmit(form) {
 
-	<form action="doJoin" method="POST">
+			if(joinFormSubmitDone) {
+				alert('처리중입니다.');
+
+				return;
+			}
+			
+			form.loginId.value = form.loginId.value.trim();
+			
+			if (form.loginId.value.length == 0) {
+				alert('로그인 아이디를 입력해주세요.');
+				form.loginId.focus();
+
+				return;
+			}
+			
+			form.loginPw.value = form.loginPw.value.trim();
+			
+			if (form.loginPw.value.length == 0) {
+				alert('비밀번호를 입력해주세요.');
+				form.loginPw.focus();
+
+				return;
+			}
+
+			form.loginPwConfirm.value = form.loginPwConfirm.value.trim();
+			if(form.loginPw.value != form.loginPwConfirm.value ) {
+				alert('로그인 비밀번호가 일치하지 않습니다.')
+				form.loginPwConfirm.focus();
+
+				return;
+			}
+
+			form.name.value = form.name.value.trim();
+			
+			if (form.name.value.length == 0) {
+				alert('이름을 입력해주세요.');
+				form.name.focus();
+
+				return;
+			}
+			
+			form.submit();
+			joinFormSubmitDone = true;
+		}
+	</script>
+
+	<form action="doJoin" method="POST" onsubmit="joinFormSubmit(this); return false;">
 		<div>
 			Id : <input type="text" maxlength="30" placeholder="로그인 ID를 입력해주세요."
 				name="loginId" />
@@ -19,6 +67,10 @@
 		<div>
 			비밀번호 : <input type="password" maxlength="30" placeholder="비밀번호를 입력해주세요."
 				name="loginPw" />
+		</div>
+		<div>
+			비밀번호 확인: <input type="password" maxlength="30" placeholder="입력한 비밀번호를 입력해주세요."
+				name="loginPwConfirm" />
 		</div>
 		<div>
 			이름 : <input type="text" maxlength="30" placeholder="이름을 입력해주세요."
