@@ -11,7 +11,7 @@
 	<h1>게시물 작성</h1>
 	<hr />
 
-	<form action="doWrite" method="POST">>
+	<form action="doWrite" method="POST">
 		<div>
 			제목 : <input type="text" maxlength="30" placeholder="제목을 입력해주세요."
 				name="title" />
