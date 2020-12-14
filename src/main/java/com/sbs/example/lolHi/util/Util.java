@@ -28,4 +28,11 @@ public class Util {
 		return defaultValue;
 	}
 
+	public static String getAsStr(Object object, String string) {
+		if(object instanceof String ) {
+			return (String)(object);
+		}
+		return object.toString();
+	}
+
 }
