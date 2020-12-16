@@ -3,6 +3,8 @@ package com.sbs.example.lolHi.controller.usr;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -92,7 +94,15 @@ public class ArticleController {
 	}
 	
 	@RequestMapping("/usr/article/write")
-	public String showWrite() {
+	public String showWrite(HttpSession session) {
+		
+		int loginedMemberId = 0;
+		
+		//세션값이 null이 아니면 loginedMemberId에 할당
+		if(session.getAttribute("loginedMemberId") != null) {
+			loginedMemberId = (int)session.getAttribute("loginedMemberId");
+		}
+		
 		
 		return "usr/article/write";
 		

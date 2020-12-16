@@ -1,14 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>게시물 상세페이지</title>
-</head>
-<body>
-	<h1>게시물 상세페이지</h1>	
+
+<c:set var="title" value="게시물 상세페이지" />
+
+<%@ include file="../part/head.jspf" %>
 	<hr/>
 	
 	<div>제목 : ${article.id }</div>
@@ -23,5 +19,4 @@
 		<a href="modify?id=${article.id}">수정</a>		
 	</div>
 	
-</body>
-</html>
+<%@ include file="../part/foot.jspf" %>
