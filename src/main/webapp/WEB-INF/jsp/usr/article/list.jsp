@@ -8,6 +8,8 @@
 <title>게시물 리스트</title>
 </head>
 <body>
+
+	[${sessionScope.loginedMemberId}]
 	<h1>게시물 리스트</h1>	
 	<hr/>
 	<div>총 게시물 수 : ${totalCount}</div>
