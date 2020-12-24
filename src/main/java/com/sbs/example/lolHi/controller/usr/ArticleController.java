@@ -63,13 +63,17 @@ public class ArticleController {
 	}
 	
 	@RequestMapping("/usr/article/doDelete")
-	@ResponseBody
-	public String doDelete(int id) {
+	//@ResponseBody
+	public String doDelete(int id, Model model) {
 		
-		articleService.deleteArticle(id);		
+		articleService.deleteArticle(id);	
+		
+		model.addAttribute("msg", String.format("%d 글이 삭제되었습니다.", id));
+		model.addAttribute("replaceUri", String.format("/usr/article/list"));
+		return "common/redirect";
 				
 		//location.href 는 백스페이스를 누르면 삭제 페이지로 이동, location.replace로 해야된다.
-		return String.format("<script>alert('%d번 글을 삭제하였습니다.'); location.replace('/usr/article/list') </script>",id);
+		//return String.format("<script>alert('%d번 글을 삭제하였습니다.'); location.replace('/usr/article/list') </script>",id);
 		
 	}
 	
@@ -83,18 +87,21 @@ public class ArticleController {
 	}
 	
 	@RequestMapping("/usr/article/doModify")
-	@ResponseBody
-	public String doModify(int id, String title, String body) {
+	public String doModify(int id, String title, String body, Model model) {
 		
-		articleService.modifyArticle(id, title, body);		
+		articleService.modifyArticle(id, title, body);
+		
+		model.addAttribute("msg", String.format("%d 글이 수정되었습니다.", id));
+		model.addAttribute("replaceUri", String.format("/usr/article/detail?id=%d",id));
+		return "common/redirect";
 				
 		//location.href 는 백스페이스를 누르면 삭제 페이지로 이동, location.replace로 해야된다.
-		return String.format("<script>alert('%d번 게시글을 수정하였습니다.'); location.replace('/usr/article/detail?id=%d') </script>",id,id);
+        //return String.format("<script>alert('%d번 게시글을 수정하였습니다.'); location.replace('/usr/article/detail?id=%d') </script>",id,id);
 		
 	}
 	
 	@RequestMapping("/usr/article/write")
-	public String showWrite(HttpSession session) {
+	public String showWrite(HttpSession session, Model model) {
 		
 		int loginedMemberId = 0;
 		
@@ -103,19 +110,26 @@ public class ArticleController {
 			loginedMemberId = (int)session.getAttribute("loginedMemberId");
 		}
 		
+		if(loginedMemberId == 0) {
+			
+			model.addAttribute("msg", "로그인 후 이용해주세요.");
+			model.addAttribute("replaceUri","/usr/member/login");
+			return "common/redirect";					
+					
+		}
 		
 		return "usr/article/write";
 		
 	}
 	
-	@RequestMapping("/usr/article/doWrite")
-	@ResponseBody
-	public String doWrite(@RequestParam Map<String, Object> param) {
+	@RequestMapping("/usr/article/doWrite")	
+	public String doWrite(@RequestParam Map<String, Object> param, HttpSession session, Model model) {
 		
-		int id = articleService.writeArticle(param);		
-				
-		//location.href 는 백스페이스를 누르면 삭제 페이지로 이동, location.replace로 해야된다.
-		return String.format("<script>alert('%d 게시글을 등록하였습니다.'); location.replace('/usr/article/list') </script>",id);
+		int id = articleService.writeArticle(param);
+		
+		model.addAttribute("msg", String.format("%d 글이 생성되었습니다.", id));
+		model.addAttribute("replaceUri","/usr/article/list");
+		return "common/redirect";		
 		
 	}
 

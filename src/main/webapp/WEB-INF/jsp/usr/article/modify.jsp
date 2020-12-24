@@ -27,7 +27,7 @@
 				name="body" value="${article.body}" />
 		</div>
 		<div>
-			수정 : <input type="submit" value="작성" />
+			수정 : <input type="submit" value="수정" />
 		</div>
 		<div>
 			리스트 : <a href="list">리스트</a>
