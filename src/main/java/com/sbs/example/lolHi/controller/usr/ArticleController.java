@@ -181,6 +181,7 @@ public class ArticleController {
 			return "common/redirect";		
 		}
 		
+		param.put("memberId", loginedMemberId);
 		int id = articleService.writeArticle(param);
 		
 		model.addAttribute("msg", String.format("%d 글이 생성되었습니다.", id));
