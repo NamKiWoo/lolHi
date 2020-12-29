@@ -109,6 +109,14 @@ public class ArticleController {
 		}
 		
 		Article article = articleService.getArticleById(id);
+		
+		if (article.getMemberId() != loginedMemberId) {
+			model.addAttribute("msg", "권한이 없습니다.");
+			model.addAttribute("historyBack", true);
+			
+			return "common/redirect";	
+		}
+		
 		model.addAttribute("article", article);
 		
 		return "usr/article/modify";		
@@ -129,6 +137,15 @@ public class ArticleController {
 			model.addAttribute("msg", "로그인 후 이용해주세요.");
 			model.addAttribute("replaceUri","/usr/member/login");
 			return "common/redirect";		
+		}
+		
+		Article article = articleService.getArticleById(id);
+		
+		if (article.getMemberId() != loginedMemberId) {
+			model.addAttribute("msg", "권한이 없습니다.");
+			model.addAttribute("historyBack", true);
+			
+			return "common/redirect";	
 		}
 		
 		articleService.modifyArticle(id, title, body);
