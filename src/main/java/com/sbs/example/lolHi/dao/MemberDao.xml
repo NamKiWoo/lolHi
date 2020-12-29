@@ -25,4 +25,10 @@
 		from member
 		where loginId = #{loginId}
 	</select>
+	
+	<select id="getMemberById" resultType="Member">
+		select *
+		from member
+		where id = #{id}
+	</select>
 </mapper>
