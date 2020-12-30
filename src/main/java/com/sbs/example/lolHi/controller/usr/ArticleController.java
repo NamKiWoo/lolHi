@@ -3,14 +3,13 @@ package com.sbs.example.lolHi.controller.usr;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sbs.example.lolHi.dto.Article;
 import com.sbs.example.lolHi.service.ArticleService;
@@ -64,21 +63,24 @@ public class ArticleController {
 	
 	@RequestMapping("/usr/article/doDelete")
 	//@ResponseBody
-	public String doDelete(int id, Model model, HttpSession session) {
-		
-		int loginedMemberId = 0;
-		
+	public String doDelete(int id, Model model, HttpServletRequest req) {
+					
 		//세션값이 null이 아니면 loginedMemberId에 할당
+		/*
 		if(session.getAttribute("loginedMemberId") != null) {
 			loginedMemberId = (int)session.getAttribute("loginedMemberId");
 		}
+		*/
+		int loginedMemberId = (int)req.getAttribute("loginedMemberId");
 		
+		/*
 		if(loginedMemberId == 0) {
 			
 			model.addAttribute("msg", "로그인 후 이용해주세요.");
 			model.addAttribute("replaceUri","/usr/member/login");
 			return "common/redirect";		
 		}
+		*/
 		
 		Article article = articleService.getArticleById(id);
 		
@@ -101,21 +103,25 @@ public class ArticleController {
 	}
 	
 	@RequestMapping("/usr/article/modify")	
-	public String showModify(Model model, int id, HttpSession session) {
-		
+	public String showModify(Model model, int id, HttpServletRequest req) {
+		/*
 		int loginedMemberId = 0;
 		
 		//세션값이 null이 아니면 loginedMemberId에 할당
 		if(session.getAttribute("loginedMemberId") != null) {
 			loginedMemberId = (int)session.getAttribute("loginedMemberId");
 		}
+		*/
+		int loginedMemberId = (int)req.getAttribute("loginedMemberId");
 		
+		/*
 		if(loginedMemberId == 0) {
 			
 			model.addAttribute("msg", "로그인 후 이용해주세요.");
 			model.addAttribute("replaceUri","/usr/member/login");
-			return "common/redirect";	
+			return "common/redirect";		
 		}
+		*/
 		
 		Article article = articleService.getArticleById(id);
 		
@@ -132,21 +138,18 @@ public class ArticleController {
 	}
 	
 	@RequestMapping("/usr/article/doModify")
-	public String doModify(int id, String title, String body, Model model, HttpSession session) {
+	public String doModify(int id, String title, String body, Model model, HttpServletRequest req) {
 		
-		int loginedMemberId = 0;
-		
-		//세션값이 null이 아니면 loginedMemberId에 할당
-		if(session.getAttribute("loginedMemberId") != null) {
-			loginedMemberId = (int)session.getAttribute("loginedMemberId");
-		}
-		
+		int loginedMemberId = (int)req.getAttribute("loginedMemberId");
+					
+		/*
 		if(loginedMemberId == 0) {
 			
 			model.addAttribute("msg", "로그인 후 이용해주세요.");
 			model.addAttribute("replaceUri","/usr/member/login");
 			return "common/redirect";		
 		}
+		*/
 		
 		Article article = articleService.getArticleById(id);
 		
@@ -169,43 +172,36 @@ public class ArticleController {
 	}
 	
 	@RequestMapping("/usr/article/write")
-	public String showWrite(HttpSession session, Model model) {
+	public String showWrite(HttpServletRequest req, Model model) {
 		
-		int loginedMemberId = 0;
+		//int loginedMemberId = (int)req.getAttribute("loginedMemberId");
 		
-		//세션값이 null이 아니면 loginedMemberId에 할당
-		if(session.getAttribute("loginedMemberId") != null) {
-			loginedMemberId = (int)session.getAttribute("loginedMemberId");
-		}
-		
-		if(loginedMemberId == 0) {
-			
-			model.addAttribute("msg", "로그인 후 이용해주세요.");
-			model.addAttribute("replaceUri","/usr/member/login");
-			return "common/redirect";					
-					
-		}
-		
-		return "usr/article/write";
-		
-	}
-	
-	@RequestMapping("/usr/article/doWrite")	
-	public String doWrite(@RequestParam Map<String, Object> param, HttpSession session, Model model) {
-		
-		int loginedMemberId = 0;
-		
-		//세션값이 null이 아니면 loginedMemberId에 할당
-		if(session.getAttribute("loginedMemberId") != null) {
-			loginedMemberId = (int)session.getAttribute("loginedMemberId");
-		}
-		
+		/*
 		if(loginedMemberId == 0) {
 			
 			model.addAttribute("msg", "로그인 후 이용해주세요.");
 			model.addAttribute("replaceUri","/usr/member/login");
 			return "common/redirect";		
 		}
+		*/
+		
+		return "usr/article/write";
+		
+	}
+	
+	@RequestMapping("/usr/article/doWrite")	
+	public String doWrite(@RequestParam Map<String, Object> param, HttpServletRequest req, Model model) {
+		
+		int loginedMemberId = (int)req.getAttribute("loginedMemberId");
+					
+		/*
+		if(loginedMemberId == 0) {
+			
+			model.addAttribute("msg", "로그인 후 이용해주세요.");
+			model.addAttribute("replaceUri","/usr/member/login");
+			return "common/redirect";		
+		}
+		*/
 		
 		param.put("memberId", loginedMemberId);
 		int id = articleService.writeArticle(param);
