@@ -31,4 +31,15 @@
 		from member
 		where id = #{id}
 	</select>
+	
+	<update id="modify">
+		update member
+		<set> 
+			updateDate = NOW(),
+			<if test="name !=null">
+				name = #{name},
+			</if>			
+		</set>		
+		where id = #{id}
+	</update>
 </mapper>

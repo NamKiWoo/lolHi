@@ -2,6 +2,7 @@ package com.sbs.example.lolHi.controller.usr;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -142,5 +143,28 @@ public class MemberController {
 		model.addAttribute("replaceUri", "/usr/article/list");
 		return "common/redirect";
 	}
-
+	
+	@RequestMapping("/usr/member/modify")
+	public String showModify() {
+		
+		return "/usr/member/modify";
+	}
+	
+	@RequestMapping("/usr/member/doModify")
+	public String doModify(Model model, HttpServletRequest req, @RequestParam Map<String, Object> param) {
+		
+		int loginedMemberId = (int)req.getAttribute("loginedMemberId");
+		param.put("id", loginedMemberId);
+		
+		//해킹방지
+		param.remove("loginId");
+		param.remove("loginPw");
+		
+		memberService.modify(param);
+		
+		model.addAttribute("msg", String.format("수정되었습니다."));
+		model.addAttribute("replaceUri", "/usr/article/list");
+		
+		return "common/redirect";
+	}
 }
