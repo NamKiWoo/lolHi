@@ -15,7 +15,7 @@ public class ArticleService {
 	@Autowired
 	private ArticleDao articleDao;
 
-	public List<Article> getArticles(Map<String, Object> param) {
+	public List<Article> getForPrintArticles(Map<String, Object> param) {
 		// TODO Auto-generated method stub
 		//페이지 수 가져오기
 		int page = Util.getAsInt(param.get("page"),1);
@@ -35,12 +35,12 @@ public class ArticleService {
 		param.put("limitFrom", limitFrom);
 		param.put("limitTake", limitTake);
 		
-		return articleDao.getArticles(param);
+		return articleDao.getForPrintArticles(param);
 	}
 
-	public Article getArticleById(int id) {
+	public Article getForPrintArticleById(int id) {
 		// TODO Auto-generated method stub
-		return articleDao.getArticleById(id);
+		return articleDao.getForPrintArticleById(id);
 	}
 
 	public void deleteArticle(int id) {

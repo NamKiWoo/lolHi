@@ -38,7 +38,7 @@ public class ArticleController {
 		}
 		
 		param.put("itemsCountInAPage", itemsCountInAPage);
-		List<Article> articles = articleService.getArticles(param);		
+		List<Article> articles = articleService.getForPrintArticles(param);		
 		
 		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("totalPage", totalPage);
@@ -54,7 +54,7 @@ public class ArticleController {
 	@RequestMapping("/usr/article/detail")	
 	public String showDetail(Model model, int id) {
 		
-		Article article = articleService.getArticleById(id);		
+		Article article = articleService.getForPrintArticleById(id);		
 		
 		model.addAttribute("article", article);
 		
@@ -82,7 +82,7 @@ public class ArticleController {
 		}
 		*/
 		
-		Article article = articleService.getArticleById(id);
+		Article article = articleService.getForPrintArticleById(id);
 		
 		if (article.getMemberId() != loginedMemberId) {
 			model.addAttribute("msg", "권한이 없습니다.");
@@ -123,7 +123,7 @@ public class ArticleController {
 		}
 		*/
 		
-		Article article = articleService.getArticleById(id);
+		Article article = articleService.getForPrintArticleById(id);
 		
 		if (article.getMemberId() != loginedMemberId) {
 			model.addAttribute("msg", "권한이 없습니다.");
@@ -151,7 +151,7 @@ public class ArticleController {
 		}
 		*/
 		
-		Article article = articleService.getArticleById(id);
+		Article article = articleService.getForPrintArticleById(id);
 		
 		if (article.getMemberId() != loginedMemberId) {
 			model.addAttribute("msg", "권한이 없습니다.");

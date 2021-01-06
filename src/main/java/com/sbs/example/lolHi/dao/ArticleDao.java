@@ -11,9 +11,9 @@ import com.sbs.example.lolHi.dto.Article;
 @Mapper
 public interface ArticleDao {
 
-	Article getArticleById(@Param("id") int id);
+	Article getForPrintArticleById(@Param("id") int id);
 
-	List<Article> getArticles(Map<String, Object> param);
+	List<Article> getForPrintArticles(Map<String, Object> param);
 
 	void deleteArticle(@Param("id") int id);	
 

@@ -7,8 +7,9 @@
 <%@ include file="../part/head.jspf" %>
 	<hr/>
 	
-	<div>제목 : ${article.id }</div>
+	<div>번호 : ${article.id }</div>
 	<div>제목 : ${article.title }</div>
+	<div>작성자 : ${article.extra.writer }</div>
 	<div>내용 : ${article.body }</div>	
 	
 	<div>${age}</div>
