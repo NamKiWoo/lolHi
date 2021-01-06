@@ -66,9 +66,9 @@ public class ArticleService {
 		return id;
 	}
 
-	public int getTotalCount() {
+	public int getTotalCount(Map<String, Object> param) {
 		// TODO Auto-generated method stub
-		return articleDao.getTotalCount();
+		return articleDao.getTotalCount(param);
 	}
 
 }
