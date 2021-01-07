@@ -8,6 +8,17 @@
 	<hr/>
 	<div>총 게시물 수 : ${totalCount}</div>
 	
+	<div>
+		<form>
+			<div>
+				<input type="text" name="searchKeyword" placeholder="검색어" value=${param.searchKeyword}>
+			</div>
+			<div>
+				<input type="submit" value="검색">
+			</div>
+		</form>
+	</div>	
+	
 <c:forEach items="${articles}" var="article">
 <!-- 
 	<c:set var="detailUrl"
