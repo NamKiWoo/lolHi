@@ -1,36 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <c:set var="title" value="게시물 상세페이지" />
 
-<%@ include file="../part/head.jspf" %>
-	<hr/>
-	
-	<div>번호 : ${article.id }</div>
-	<div>제목 : ${article.title }</div>
-	<div>작성자 : ${article.extra.writer }</div>
-	<div>내용 : ${article.body }</div>	
-	
-	<div>${age}</div>
-	
+<%@ include file="../part/head.jspf"%>
+<hr />
+
+<div>번호 : ${article.id }</div>
+<div>제목 : ${article.title }</div>
+<div>작성자 : ${article.extra.writer }</div>
+<div>내용 : ${article.body }</div>
+
+<div>${age}</div>
+
+<div>
+	<a href="list">리스트</a>
+	<a onclick="if(confirm('삭제하시겠습니까?') == false) return false;"
+		href="doDelete?id=${article.id}">삭제</a>
+	<a href="modify?id=${article.id}">수정</a>
+</div>
+
+<h2>댓글 작성</h2>
+<form action="/usr/reply/doWrite" method="POST">
+	<input type="hidden" name="relId" value="${article.id }" />
+	<input type="hidden" name="relTypeCode" value="article" />
+
 	<div>
-		<a href="list">리스트</a>
-		<a onclick="if(confirm('삭제하시겠습니까?') == false) return false;" href="doDelete?id=${article.id}">삭제</a> 
-		<a href="modify?id=${article.id}">수정</a>		
+		<textarea rows="3" name="body" placeholder="내용"></textarea>
 	</div>
-	
-	<h2>댓글 작성</h2>
-	<form action="/usr/reply/doWrite" method="POST">
-		<input type="hidden" name="relId" value="${article.id }"/>
-		<input type="hidden" name="relTypeCode" value="article"/>
-		
-		<div>
-			<textarea rows="3" name="body" placeholder="내용"></textarea>
-		</div>
-		<div>
-			<input type="submit" value="작성"/>
-		</div>
-	</form>
-	
-<%@ include file="../part/foot.jspf" %>
+	<div>
+		<input type="submit" value="작성" />
+	</div>
+</form>
+
+<%@ include file="../part/foot.jspf"%>
