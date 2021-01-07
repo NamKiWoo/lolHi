@@ -20,4 +20,17 @@
 		<a href="modify?id=${article.id}">수정</a>		
 	</div>
 	
+	<h2>댓글 작성</h2>
+	<form action="/usr/reply/doWrite" method="POST">
+		<input type="hidden" name="relId" value="${article.id }"/>
+		<input type="hidden" name="relTypeCode" value="article"/>
+		
+		<div>
+			<textarea rows="3" name="body" placeholder="내용"></textarea>
+		</div>
+		<div>
+			<input type="submit" value="작성"/>
+		</div>
+	</form>
+	
 <%@ include file="../part/foot.jspf" %>
