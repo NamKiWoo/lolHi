@@ -25,6 +25,7 @@
 <form action="/usr/reply/doWrite" method="POST">
 	<input type="hidden" name="relId" value="${article.id }" />
 	<input type="hidden" name="relTypeCode" value="article" />
+	<input type="hidden" name="redirectUrl" value="${currentUri}" />
 
 	<div>
 		<textarea rows="3" name="body" placeholder="내용"></textarea>
