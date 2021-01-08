@@ -1,5 +1,7 @@
 package com.sbs.example.lolHi.dto;
 
+import java.util.Map;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,4 +18,6 @@ public class Reply {
 	private String relId;
 	private String body;
 	private int memberId;
+	
+	private Map<String, Object> extra;
 }
