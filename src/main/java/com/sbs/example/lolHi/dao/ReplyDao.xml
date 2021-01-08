@@ -31,4 +31,15 @@
 		order by id DESC
 	</select>
 	
+	<select id="getReply" resultType="Reply">
+		select *
+		from reply
+		where id = #{id}		
+	</select>
+	
+	<delete id="deleteReplyById">
+		delete from reply
+		where id = #{id}		
+	</delete>
+	
 </mapper>

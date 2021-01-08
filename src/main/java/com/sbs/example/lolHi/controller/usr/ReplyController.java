@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.sbs.example.lolHi.dto.Reply;
 import com.sbs.example.lolHi.service.ReplyService;
 import com.sbs.example.lolHi.util.Util;
 
@@ -33,7 +34,35 @@ public class ReplyController {
 		model.addAttribute("replaceUri", String.format("/usr/%s/detail?id=%d", relTypeCode, relId));
 		
 		return "common/redirect";		
+	}
+	
+	@RequestMapping("/usr/reply/doDelete")
+	public String doDelete(HttpServletRequest req, Model model, int id) {
+				
+		int loginedMemberId = (int)req.getAttribute("loginedMemberId");
 		
+		Reply reply = replyService.getReply(id);
+		
+		if (reply == null) {
+			model.addAttribute("msg", "존재하지 않는 댓글입니다.");
+			model.addAttribute("historyBack", true);
+			
+			return "common/redirect";
+		}
+		
+		if ( loginedMemberId != reply.getMemberId() ) {
+			model.addAttribute("msg", "권한이 없습니다.");
+			model.addAttribute("historyBack", true);
+			
+			return "common/redirect";	
+		}
+		
+		replyService.deleteReplyById(id);
+				
+		model.addAttribute("msg", String.format("%d 글이 삭제되었습니다.", id));
+		model.addAttribute("replaceUri", String.format("/usr/%s/detail?id=%s", reply.getRelTypeCode(),reply.getRelId()));
+		
+		return "common/redirect";
 	}
 
 }
