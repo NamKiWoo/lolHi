@@ -10,6 +10,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.sbs.example.lolHi.dto.Member;
 import com.sbs.example.lolHi.service.MemberService;
+import com.sbs.example.lolHi.util.Util;
 
 @Component("beforeActionInterceptor") // 컴포넌트 이름 설정
 public class BeforeActionInterceptor implements HandlerInterceptor {
@@ -37,7 +38,20 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 		request.setAttribute("isLogined", isLogined);
 		request.setAttribute("isAjax", isAjax);
 		request.setAttribute("loginedMemberId", loginedMemberId);
-		request.setAttribute("loginedMember", loginedMember);				 
+		request.setAttribute("loginedMember", loginedMember);
+		
+		// 현재 URL
+
+		String currentUri = request.getRequestURI();
+
+		if (request.getQueryString() != null) {
+			currentUri += "?" + request.getQueryString();
+		}
+
+		String encodedCurrentUri = Util.getUriEncoded(currentUri);
+						
+		request.setAttribute("currentUri", currentUri);
+		request.setAttribute("encodedCurrentUri", encodedCurrentUri);
 		
 		return HandlerInterceptor.super.preHandle(request, response, handler);
 	}
