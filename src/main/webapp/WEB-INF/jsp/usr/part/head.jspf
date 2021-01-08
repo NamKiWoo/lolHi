@@ -9,7 +9,7 @@
 </head>
 <body>
 
-	[${sessionScope.loginedMemberId}]
+	세션 ID : [${sessionScope.loginedMemberId}]
 	<h1>${title}</h1>	
 	
 	<div>

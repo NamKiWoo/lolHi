@@ -23,4 +23,12 @@
 		</set>
 	</insert>
 
+	<select id="getForPrintReplies" resultType="Reply">
+		select *
+		from reply
+		where relTypeCode = #{relTypeCode}
+		and relId = #{relId} 
+		order by id DESC
+	</select>
+	
 </mapper>
