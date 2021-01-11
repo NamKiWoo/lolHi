@@ -45,6 +45,17 @@
 		where id = #{id}		
 	</delete>
 	
+	<update id="modify">
+		update reply
+		<set> 
+			updateDate = NOW(),			
+			<if test="body !=null">
+				body = #{body},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	
 	<resultMap type="Reply" id="reply">
 		<id property="id" column="id" />
 		<id property="regDate" column="regDate" />
