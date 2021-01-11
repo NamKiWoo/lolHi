@@ -74,5 +74,35 @@ public class ReplyController {
 		
 		return "common/redirect";
 	}
+	
+	@RequestMapping("/usr/reply/modify")
+	public String showModify(HttpServletRequest req, Model model, int id, String redirectUrl) {
+				
+		int loginedMemberId = (int)req.getAttribute("loginedMemberId");
+		
+		Reply reply = replyService.getReply(id);
+		
+		if (redirectUrl == null || redirectUrl.length() == 0) {
+			redirectUrl = String.format("/usr/%s/detail?id=%s", reply.getRelTypeCode(),reply.getRelId());
+		}
+		
+		if (reply == null) {
+			model.addAttribute("msg", "존재하지 않는 댓글입니다.");
+			model.addAttribute("historyBack", true);
+			
+			return "common/redirect";
+		}
+		
+		if ( loginedMemberId != reply.getMemberId() ) {
+			model.addAttribute("msg", "권한이 없습니다.");
+			model.addAttribute("historyBack", true);
+			
+			return "common/redirect";	
+		}
+		
+		model.addAttribute("reply", reply);
+						
+		return "usr/reply/modify";
+	}
 
 }

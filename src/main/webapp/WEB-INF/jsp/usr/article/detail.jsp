@@ -45,6 +45,7 @@
 	<div>내용 : ${reply.body }</div>
 	<div>
 		<a href="/usr/reply/doDelete?id=${reply.id}&redirectUrl=${encodedCurrentUri}">삭제</a>
+		<a href="/usr/reply/modify?id=${reply.id}&redirectUrl=${encodedCurrentUri}">수정</a>
 	</div>
 	<hr />
 </c:forEach>
