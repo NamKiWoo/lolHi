@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sbs.example.lolHi.dto.Article;
+import com.sbs.example.lolHi.dto.Member;
 import com.sbs.example.lolHi.dto.Reply;
 import com.sbs.example.lolHi.service.ArticleService;
 import com.sbs.example.lolHi.service.ReplyService;
@@ -26,7 +27,9 @@ public class ArticleController {
 	
 
 	@RequestMapping("/usr/article/list")	
-	public String showList(Model model, @RequestParam Map<String, Object> param) {
+	public String showList(HttpServletRequest req,  Model model, @RequestParam Map<String, Object> param) {
+		
+		Member loginedMember = (Member)req.getAttribute("loginedMember");
 		
 		int totalCount = articleService.getTotalCount(param);
 		int itemsCountInAPage = 10;
@@ -43,7 +46,7 @@ public class ArticleController {
 		}
 		
 		param.put("itemsCountInAPage", itemsCountInAPage);
-		List<Article> articles = articleService.getForPrintArticles(param);		
+		List<Article> articles = articleService.getForPrintArticles(loginedMember, param);		
 		
 		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("totalPage", totalPage);
