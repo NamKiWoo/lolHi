@@ -45,15 +45,12 @@ public class ArticleService {
 			}
 			
 			boolean actorCanDelete =false;
-			boolean actorCanModify =false;
 			
-			if(actorMember == null) {
-				actorCanDelete = false;
-				actorCanModify = false;
-			} else if(actorMember.getId() == article.getMemberId()){
-				actorCanDelete = true;
-				actorCanModify = true;
-			}			
+			
+			if(actorMember != null) {
+				actorCanDelete = actorMember.getId() == article.getMemberId();
+			}
+			boolean actorCanModify =actorCanDelete;
 			
 			article.getExtra().put("actorCanDelete", actorCanDelete);
 			article.getExtra().put("actorCanModify", actorCanModify);
@@ -70,15 +67,12 @@ public class ArticleService {
 		}
 		
 		boolean actorCanDelete =false;
-		boolean actorCanModify =false;
 		
-		if(actorMember == null) {
-			actorCanDelete = false;
-			actorCanModify = false;
-		} else if(actorMember.getId() == article.getMemberId()){
-			actorCanDelete = true;
-			actorCanModify = true;
-		}			
+		
+		if(actorMember != null) {
+			actorCanDelete = actorMember.getId() == article.getMemberId();
+		}
+		boolean actorCanModify =actorCanDelete;
 		
 		article.getExtra().put("actorCanDelete", actorCanDelete);
 		article.getExtra().put("actorCanModify", actorCanModify);
