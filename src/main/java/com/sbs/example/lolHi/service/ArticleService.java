@@ -44,8 +44,16 @@ public class ArticleService {
 				article.setExtra(new HashMap<>());
 			}
 			
-			boolean actorCanDelete = actorMember.getId() == article.getMemberId();
-			boolean actorCanModify = actorCanDelete;
+			boolean actorCanDelete =false;
+			boolean actorCanModify =false;
+			
+			if(actorMember == null) {
+				actorCanDelete = false;
+				actorCanModify = false;
+			} else if(actorMember.getId() == article.getMemberId()){
+				actorCanDelete = true;
+				actorCanModify = true;
+			}			
 			
 			article.getExtra().put("actorCanDelete", actorCanDelete);
 			article.getExtra().put("actorCanModify", actorCanModify);
@@ -54,9 +62,28 @@ public class ArticleService {
 		return articles;
 	}
 
-	public Article getForPrintArticleById(int id) {
-		// TODO Auto-generated method stub
-		return articleDao.getForPrintArticleById(id);
+	public Article getForPrintArticleById(Member actorMember, int id) {
+		Article article = articleDao.getForPrintArticleById(id);
+		
+		if(article.getExtra() == null) {
+			article.setExtra(new HashMap<>());
+		}
+		
+		boolean actorCanDelete =false;
+		boolean actorCanModify =false;
+		
+		if(actorMember == null) {
+			actorCanDelete = false;
+			actorCanModify = false;
+		} else if(actorMember.getId() == article.getMemberId()){
+			actorCanDelete = true;
+			actorCanModify = true;
+		}			
+		
+		article.getExtra().put("actorCanDelete", actorCanDelete);
+		article.getExtra().put("actorCanModify", actorCanModify);
+		
+		return article;
 	}
 
 	public void deleteArticle(int id) {

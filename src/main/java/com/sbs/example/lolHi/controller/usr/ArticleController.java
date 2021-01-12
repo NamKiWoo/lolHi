@@ -27,7 +27,7 @@ public class ArticleController {
 	
 
 	@RequestMapping("/usr/article/list")	
-	public String showList(HttpServletRequest req,  Model model, @RequestParam Map<String, Object> param) {
+	public String showList(HttpServletRequest req, Model model, @RequestParam Map<String, Object> param) {
 		
 		Member loginedMember = (Member)req.getAttribute("loginedMember");
 		
@@ -60,9 +60,11 @@ public class ArticleController {
 	}
 	
 	@RequestMapping("/usr/article/detail")	
-	public String showDetail(Model model, int id, String listUrl) {
+	public String showDetail(HttpServletRequest req, Model model, int id, String listUrl) {
 		
-		Article article = articleService.getForPrintArticleById(id);
+		Member loginedMember = (Member)req.getAttribute("loginedMember");
+		
+		Article article = articleService.getForPrintArticleById(loginedMember, id);
 		List<Reply> replies = replyService.getForPrintReplies("article",id);
 		
 		if (listUrl == null) {
@@ -79,6 +81,8 @@ public class ArticleController {
 	@RequestMapping("/usr/article/doDelete")
 	//@ResponseBody
 	public String doDelete(int id, Model model, HttpServletRequest req) {
+		
+		Member loginedMember = (Member)req.getAttribute("loginedMember");
 					
 		//세션값이 null이 아니면 loginedMemberId에 할당
 		/*
@@ -86,7 +90,7 @@ public class ArticleController {
 			loginedMemberId = (int)session.getAttribute("loginedMemberId");
 		}
 		*/
-		int loginedMemberId = (int)req.getAttribute("loginedMemberId");
+		//int loginedMemberId = (int)req.getAttribute("loginedMemberId");
 		
 		/*
 		if(loginedMemberId == 0) {
@@ -97,9 +101,9 @@ public class ArticleController {
 		}
 		*/
 		
-		Article article = articleService.getForPrintArticleById(id);
+		Article article = articleService.getForPrintArticleById(loginedMember, id);
 		
-		if (article.getMemberId() != loginedMemberId) {
+		if ((boolean) article.getExtra().get("actorCanDelete") == false) {
 			model.addAttribute("msg", "권한이 없습니다.");
 			model.addAttribute("historyBack", true);
 			
@@ -119,6 +123,9 @@ public class ArticleController {
 	
 	@RequestMapping("/usr/article/modify")	
 	public String showModify(Model model, int id, HttpServletRequest req) {
+		
+		Member loginedMember = (Member)req.getAttribute("loginedMember");
+		
 		/*
 		int loginedMemberId = 0;
 		
@@ -127,7 +134,7 @@ public class ArticleController {
 			loginedMemberId = (int)session.getAttribute("loginedMemberId");
 		}
 		*/
-		int loginedMemberId = (int)req.getAttribute("loginedMemberId");
+		//int loginedMemberId = (int)req.getAttribute("loginedMemberId");
 		
 		/*
 		if(loginedMemberId == 0) {
@@ -138,9 +145,9 @@ public class ArticleController {
 		}
 		*/
 		
-		Article article = articleService.getForPrintArticleById(id);
+		Article article = articleService.getForPrintArticleById(loginedMember,id);
 		
-		if (article.getMemberId() != loginedMemberId) {
+		if ((boolean) article.getExtra().get("actorCanModify") == false) {
 			model.addAttribute("msg", "권한이 없습니다.");
 			model.addAttribute("historyBack", true);
 			
@@ -155,7 +162,7 @@ public class ArticleController {
 	@RequestMapping("/usr/article/doModify")
 	public String doModify(int id, String title, String body, Model model, HttpServletRequest req) {
 		
-		int loginedMemberId = (int)req.getAttribute("loginedMemberId");
+		Member loginedMember = (Member)req.getAttribute("loginedMember");
 					
 		/*
 		if(loginedMemberId == 0) {
@@ -166,9 +173,9 @@ public class ArticleController {
 		}
 		*/
 		
-		Article article = articleService.getForPrintArticleById(id);
+		Article article = articleService.getForPrintArticleById(loginedMember, id);
 		
-		if (article.getMemberId() != loginedMemberId) {
+		if ((boolean)article.getExtra().get("actorCanModify") == false) {
 			model.addAttribute("msg", "권한이 없습니다.");
 			model.addAttribute("historyBack", true);
 			
