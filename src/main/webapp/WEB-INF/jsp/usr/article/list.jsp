@@ -35,8 +35,12 @@
 		<!-- 제목 : <a href="detail?id=${article.id}">${article.title}</a>    -->
 		제목 : <a href="${detailUrl}">${article.title}</a>
 		<br /> 
+		<c:if test="${loginedMemberId == article.memberId}">
 		작업 : <a onclick="if(confirm('삭제하시겠습니까?') == false) return false;" href="doDelete?id=${article.id}">삭제</a>
+		</c:if>
+		<c:if test="${loginedMemberId == article.memberId}">
 			   <a href="modify?id=${article.id}">수정</a>
+		</c:if>
 	</div>
 	<hr />
 </c:forEach>
