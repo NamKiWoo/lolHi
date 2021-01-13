@@ -9,15 +9,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Article {
+public class Board {
 
 	private int id;
 	private String regDate;
 	private String updateDate;	
-	private String title;
-	private String body;
-	private int memberId;
-	private int boardId;
+	private String name;
+	private String code;	
 	
 	private Map<String, Object> extra;
 }

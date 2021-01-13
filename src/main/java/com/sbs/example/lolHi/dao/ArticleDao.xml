@@ -70,6 +70,12 @@
 		</set>
 	</insert>
 	
+	<select id="getBoardByCode" resultType="Board">
+		select *
+		from board
+		where code = #{boardCode}
+	</select>
+	
 	<resultMap type="Article" id="article">
 		<id property="id" column="id" />
 		<id property="regDate" column="regDate" />
@@ -77,6 +83,7 @@
 		<id property="title" column="title" />
 		<id property="body" column="body" />
 		<id property="memberId" column="memberId" />
+		<id property="boardId" column="boardId" />
 
 		<association property="extra" javaType="map">
 			<id property="writer" column="extra__writer" />
