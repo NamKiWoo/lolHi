@@ -9,6 +9,9 @@
 		INNER JOIN member as M
 		ON A.memberId = M.id
 		where 	1
+		<if test="boardId != null">
+			and A.boardId = #{boardId}
+		</if>
 		<if test="searchKeyword != null">
 			and A.title like CONCAT('%', #{searchKeyword}, '%')
 		</if>	
@@ -22,6 +25,9 @@
 		select count(*)
 		from article
 		where 	1
+		<if test="boardId != null">
+			and boardId = #{boardId}
+		</if>
 		<if test="searchKeyword != null">
 			and title like CONCAT('%', #{searchKeyword}, '%')
 		</if>	

@@ -40,6 +40,8 @@ public class ArticleController {
 		}
 		
 		Member loginedMember = (Member) req.getAttribute("loginedMember");
+		
+		param.put("boardId", board.getId());
 
 		int totalCount = articleService.getTotalCount(param);
 		int itemsCountInAPage = 10;
