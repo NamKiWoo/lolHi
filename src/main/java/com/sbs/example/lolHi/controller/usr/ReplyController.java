@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.sbs.example.lolHi.dto.Member;
 import com.sbs.example.lolHi.dto.Reply;
 import com.sbs.example.lolHi.service.ReplyService;
 import com.sbs.example.lolHi.util.Util;
@@ -43,10 +44,11 @@ public class ReplyController {
 	
 	@RequestMapping("/usr/reply/doDelete")
 	public String doDelete(HttpServletRequest req, Model model, int id, String redirectUrl) {
-				
-		int loginedMemberId = (int)req.getAttribute("loginedMemberId");
 		
-		Reply reply = replyService.getReply(id);
+		Member loginedMember = (Member)req.getAttribute("loginedMember");
+		
+		Reply reply = replyService.getForPrintReply(loginedMember, id);	
+		
 		
 		if (redirectUrl == null || redirectUrl.length() == 0) {
 			redirectUrl = String.format("/usr/%s/detail?id=%s", reply.getRelTypeCode(),reply.getRelId());
@@ -59,7 +61,7 @@ public class ReplyController {
 			return "common/redirect";
 		}
 		
-		if ( loginedMemberId != reply.getMemberId() ) {
+		if ( (boolean) reply.getExtra().get("actorCanDelete") == false  ) {
 			model.addAttribute("msg", "권한이 없습니다.");
 			model.addAttribute("historyBack", true);
 			
@@ -78,9 +80,9 @@ public class ReplyController {
 	@RequestMapping("/usr/reply/modify")
 	public String showModify(HttpServletRequest req, Model model, int id, String redirectUrl) {
 				
-		int loginedMemberId = (int)req.getAttribute("loginedMemberId");
+		Member loginedMember = (Member)req.getAttribute("loginedMember");
 		
-		Reply reply = replyService.getReply(id);
+		Reply reply = replyService.getForPrintReply(loginedMember, id);
 		
 		if (redirectUrl == null || redirectUrl.length() == 0) {
 			redirectUrl = String.format("/usr/%s/detail?id=%s", reply.getRelTypeCode(),reply.getRelId());
@@ -93,7 +95,7 @@ public class ReplyController {
 			return "common/redirect";
 		}
 		
-		if ( loginedMemberId != reply.getMemberId() ) {
+		if ( (boolean) reply.getExtra().get("actorCanModify") == false ) {
 			model.addAttribute("msg", "권한이 없습니다.");
 			model.addAttribute("historyBack", true);
 			
@@ -108,9 +110,9 @@ public class ReplyController {
 	@RequestMapping("/usr/reply/doModify")
 	public String doModify(HttpServletRequest req, Model model, int id, String redirectUrl, @RequestParam Map<String,Object> param) {
 				
-		int loginedMemberId = (int)req.getAttribute("loginedMemberId");
+		Member loginedMember = (Member)req.getAttribute("loginedMember");
 		
-		Reply reply = replyService.getReply(id);
+		Reply reply = replyService.getForPrintReply(loginedMember, id);
 		
 		if (redirectUrl == null || redirectUrl.length() == 0) {
 			redirectUrl = String.format("/usr/%s/detail?id=%s", reply.getRelTypeCode(),reply.getRelId());
@@ -123,7 +125,7 @@ public class ReplyController {
 			return "common/redirect";
 		}
 		
-		if ( loginedMemberId != reply.getMemberId() ) {
+		if ( (boolean) reply.getExtra().get("actorCanModify") == false  ) {
 			model.addAttribute("msg", "권한이 없습니다.");
 			model.addAttribute("historyBack", true);
 			

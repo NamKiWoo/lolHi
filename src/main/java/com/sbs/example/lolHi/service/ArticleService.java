@@ -39,6 +39,10 @@ public class ArticleService {
 		
 		List<Article> articles = articleDao.getForPrintArticles(param);
 		
+		if (articles == null) {
+			return null;
+		}
+		
 		for (Article article : articles) {
 			if(article.getExtra() == null) {
 				article.setExtra(new HashMap<>());
@@ -61,6 +65,10 @@ public class ArticleService {
 
 	public Article getForPrintArticleById(Member actorMember, int id) {
 		Article article = articleDao.getForPrintArticleById(id);
+		
+		if (article == null) {
+			return null;
+		}
 		
 		if(article.getExtra() == null) {
 			article.setExtra(new HashMap<>());
