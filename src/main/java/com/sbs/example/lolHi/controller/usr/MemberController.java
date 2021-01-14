@@ -45,14 +45,16 @@ public class MemberController {
 			return "common/redirect";
 		}
 		
-		Map<String, Object> param = new HashMap<>();
-		param.put("userId", loginId);
-		param.put("userPw", loginPw);
+//		Map<String, Object> param = new HashMap<>();
+//		param.put("userId", loginId);
+//		param.put("userPw", loginPw);
+//		
+//		SqlInjection sqlInjection = new SqlInjection();
+//		sqlInjection.initialize();
+//		param = sqlInjection.replaceStr(param);
+//		System.out.print("param : " + param);
 		
-		SqlInjection sqlInjection = new SqlInjection();
-		sqlInjection.initialize();
-		param = sqlInjection.replaceStr(param);
-		System.out.print("param : " + param);
+		
 		Member member = memberService.getMemberByLoginId(loginId);
 		
 		if (member == null) {

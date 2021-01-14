@@ -72,7 +72,7 @@ public class ArticleController {
 		return "usr/article/list";
 	}
 
-	@RequestMapping("/usr/article/detail")
+	@RequestMapping("/usr/article-{boardCode}/detail")
 	public String showDetail(HttpServletRequest req, Model model, int id, String listUrl) {
 
 		Member loginedMember = (Member) req.getAttribute("loginedMember");
@@ -91,7 +91,7 @@ public class ArticleController {
 		return "usr/article/detail";
 	}
 
-	@RequestMapping("/usr/article/doDelete")
+	@RequestMapping("/usr/article-{boardCode}/doDelete")
 	// @ResponseBody
 	public String doDelete(int id, Model model, HttpServletRequest req) {
 
@@ -133,7 +133,7 @@ public class ArticleController {
 
 	}
 
-	@RequestMapping("/usr/article/modify")
+	@RequestMapping("/usr/article-{boardCode}/modify")
 	public String showModify(Model model, int id, HttpServletRequest req) {
 
 		Member loginedMember = (Member) req.getAttribute("loginedMember");
@@ -169,7 +169,7 @@ public class ArticleController {
 		return "usr/article/modify";
 	}
 
-	@RequestMapping("/usr/article/doModify")
+	@RequestMapping("/usr/article-{boardCode}/doModify")
 	public String doModify(int id, String title, String body, Model model, HttpServletRequest req) {
 
 		Member loginedMember = (Member) req.getAttribute("loginedMember");
@@ -203,7 +203,7 @@ public class ArticleController {
 
 	}
 
-	@RequestMapping("/usr/article/write")
+	@RequestMapping("/usr/article-{boardCode}/write")
 	public String showWrite(HttpServletRequest req, Model model) {
 
 		// int loginedMemberId = (int)req.getAttribute("loginedMemberId");
@@ -220,8 +220,10 @@ public class ArticleController {
 
 	}
 
-	@RequestMapping("/usr/article/doWrite")
-	public String doWrite(@RequestParam Map<String, Object> param, HttpServletRequest req, Model model) {
+	@RequestMapping("/usr/article-{boardCode}/doWrite")
+	public String doWrite(@RequestParam Map<String, Object> param, HttpServletRequest req, Model model, @PathVariable("boardCode") String boardCode) {
+		
+		Board board = articleService.getBoardByCode(boardCode);
 
 		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
 
@@ -232,7 +234,8 @@ public class ArticleController {
 		 * model.addAttribute("replaceUri","/usr/member/login"); return
 		 * "common/redirect"; }
 		 */
-
+		
+		param.put("boardId", board.getId());
 		param.put("memberId", loginedMemberId);
 		int id = articleService.writeArticle(param);
 

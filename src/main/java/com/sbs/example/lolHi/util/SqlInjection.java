@@ -11,7 +11,8 @@ public class SqlInjection extends HttpServlet {
 	private final static int MAX_USER_ID_LENGTH = 10;
 	private final static int MAX_PASSWORD_LENGTH = 20;
 	
-	private final String UNSECURED_CHAR_REGULAR_EXPRESSION ="[^\\p{Alnum}] | select | delete | update | insert | create | alter |drop";
+	//private final String UNSECURED_CHAR_REGULAR_EXPRESSION ="[^\\p{Alnum}] | select | delete | update | insert | create | alter |drop";
+	private final String UNSECURED_CHAR_REGULAR_EXPRESSION ="[^a-zA-Z0-9_-] | select | delete | update | insert | create | alter |drop";
 
 	private static Pattern unsecuredCharPattern;
 
