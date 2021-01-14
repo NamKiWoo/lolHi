@@ -1,5 +1,6 @@
 package com.sbs.example.lolHi.controller.usr;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sbs.example.lolHi.dto.Member;
 import com.sbs.example.lolHi.service.MemberService;
+import com.sbs.example.lolHi.util.SqlInjection;
 import com.sbs.example.lolHi.util.Util;
 
 @Controller
@@ -43,6 +45,14 @@ public class MemberController {
 			return "common/redirect";
 		}
 		
+		Map<String, Object> param = new HashMap<>();
+		param.put("userId", loginId);
+		param.put("userPw", loginPw);
+		
+		SqlInjection sqlInjection = new SqlInjection();
+		sqlInjection.initialize();
+		param = sqlInjection.replaceStr(param);
+		System.out.print("param : " + param);
 		Member member = memberService.getMemberByLoginId(loginId);
 		
 		if (member == null) {
@@ -62,10 +72,10 @@ public class MemberController {
 		session.setAttribute("loginedMemberId", member.getId());
 		
 		model.addAttribute("msg", String.format("%s님 환영합니다.", member.getName()));
-		model.addAttribute("replaceUri", String.format("/usr/article/list"));
+		model.addAttribute("replaceUri", String.format("/usr/article-free/list"));
 		return "common/redirect";
 		
-		//return String.format("<script> alert('%s님 환영합니다.'); location.replace('/usr/article/list'); </script>",member.getName());
+		//return String.format("<script> alert('%s님 환영합니다.'); location.replace('/usr/article-free/list'); </script>",member.getName());
 	}
 	
 	@RequestMapping("/usr/member/doLogout")
@@ -73,9 +83,9 @@ public class MemberController {
 										
 		session.removeAttribute("loginedMemberId");
 		
-		//return String.format("<script> location.replace('/usr/article/list'); </script>");
+		//return String.format("<script> location.replace('/usr/article-free/list'); </script>");
 		
-		model.addAttribute("replaceUri", "/usr/article/list");
+		model.addAttribute("replaceUri", "/usr/article-free/list");
 		return "common/redirect";
 	}
 	
@@ -138,9 +148,9 @@ public class MemberController {
 		
 		memberService.join(param);
 		
-		//return String.format("<script>alert('%d번 회원이 생성되었습니다.'); location.replace('/usr/article/list') </script>",id);
+		//return String.format("<script>alert('%d번 회원이 생성되었습니다.'); location.replace('/usr/article-free/list') </script>",id);
 		model.addAttribute("msg", String.format("가입되었습니다."));
-		model.addAttribute("replaceUri", "/usr/article/list");
+		model.addAttribute("replaceUri", "/usr/article-free/list");
 		return "common/redirect";
 	}
 	
@@ -163,7 +173,7 @@ public class MemberController {
 		memberService.modify(param);
 		
 		model.addAttribute("msg", String.format("수정되었습니다."));
-		model.addAttribute("replaceUri", "/usr/article/list");
+		model.addAttribute("replaceUri", "/usr/article-free/list");
 		
 		return "common/redirect";
 	}

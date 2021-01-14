@@ -3,6 +3,7 @@ package com.sbs.example.lolHi.util;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.net.URLEncoder;
+import java.util.regex.Pattern;
 
 public class Util {
 
@@ -13,35 +14,32 @@ public class Util {
 
 	public static int getAsInt(Object object, int defaultValue) {
 		// TODO Auto-generated method stub
-		
-		if(object instanceof BigInteger) {
-			return ((BigInteger)object).intValue();
+
+		if (object instanceof BigInteger) {
+			return ((BigInteger) object).intValue();
+		} else if (object instanceof Long) {
+			return (int) ((long) object);
+		} else if (object instanceof Integer) {
+			return (int) object;
+		} else if (object instanceof String) {
+			return Integer.parseInt((String) object);
 		}
-		else if(object instanceof Long) {
-			return (int)((long)object);
-		}
-		else if(object instanceof Integer) {
-			return (int)object;
-		}
-		else if(object instanceof String) {
-			return Integer.parseInt((String)object);
-		}	
-		
+
 		return defaultValue;
 	}
 
 	public static String getAsStr(Object object, String defaultValue) {
-		
-		if(object == null) {
+
+		if (object == null) {
 			return defaultValue;
 		}
-		
-		if(object instanceof String ) {
-			return (String)(object);
+
+		if (object instanceof String) {
+			return (String) (object);
 		}
 		return object.toString();
 	}
-	
+
 	public static String getUriEncoded(String str) {
 		try {
 			return URLEncoder.encode(str, "UTF-8");
@@ -49,7 +47,6 @@ public class Util {
 			return str;
 		}
 	}
-
 
 	public static String getNewUriRemoved(String uri, String paramName) {
 		String deleteStrStarts = paramName + "=";
@@ -93,5 +90,6 @@ public class Util {
 
 	public static String getNewUriAndEncoded(String uri, String paramName, String pramValue) {
 		return getUriEncoded(getNewUri(uri, paramName, pramValue));
-	}
+	}	
+	
 }

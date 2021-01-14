@@ -81,7 +81,7 @@ public class ArticleController {
 		List<Reply> replies = replyService.getForPrintReplies(loginedMember, "article", id);
 
 		if (listUrl == null) {
-			listUrl = "/usr/article/list";
+			listUrl = "/usr/article-free/list";
 		}
 
 		model.addAttribute("article", article);
@@ -124,12 +124,12 @@ public class ArticleController {
 		articleService.deleteArticle(id);
 
 		model.addAttribute("msg", String.format("%d 글이 삭제되었습니다.", id));
-		model.addAttribute("replaceUri", String.format("/usr/article/list"));
+		model.addAttribute("replaceUri", String.format("/usr/article-free/list"));
 		return "common/redirect";
 
 		// location.href 는 백스페이스를 누르면 삭제 페이지로 이동, location.replace로 해야된다.
 		// return String.format("<script>alert('%d번 글을 삭제하였습니다.');
-		// location.replace('/usr/article/list') </script>",id);
+		// location.replace('/usr/article-free/list') </script>",id);
 
 	}
 
@@ -237,7 +237,7 @@ public class ArticleController {
 		int id = articleService.writeArticle(param);
 
 		model.addAttribute("msg", String.format("%d 글이 생성되었습니다.", id));
-		model.addAttribute("replaceUri", "/usr/article/list");
+		model.addAttribute("replaceUri", "/usr/article-free/list");
 		return "common/redirect";
 
 	}
