@@ -2,12 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<c:set var="title" value="게시물 수정" />
+<c:set var="title" value="${board.name} 게시물 수정" />
 
 <%@ include file="../part/head.jspf" %>
 	<hr />
 
 	<form action="doModify" method="POST">
+		
 		<input type="hidden" name="id" value="${article.id }" />
 		<div>
 			번호 : ${article.id}
