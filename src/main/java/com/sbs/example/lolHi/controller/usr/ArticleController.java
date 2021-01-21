@@ -73,7 +73,10 @@ public class ArticleController {
 	}
 
 	@RequestMapping("/usr/article-{boardCode}/detail")
-	public String showDetail(HttpServletRequest req, Model model, int id, String listUrl) {
+	public String showDetail(HttpServletRequest req, Model model, int id, String listUrl,
+			@PathVariable("boardCode") String boardCode) {
+		
+		Board board = articleService.getBoardByCode(boardCode);
 
 		Member loginedMember = (Member) req.getAttribute("loginedMember");
 
@@ -84,6 +87,7 @@ public class ArticleController {
 			listUrl = "/usr/article-free/list";
 		}
 
+		model.addAttribute("board", board);
 		model.addAttribute("article", article);
 		model.addAttribute("replies", replies);
 		model.addAttribute("listUrl", listUrl);
@@ -204,7 +208,9 @@ public class ArticleController {
 	}
 
 	@RequestMapping("/usr/article-{boardCode}/write")
-	public String showWrite(HttpServletRequest req, Model model) {
+	public String showWrite(HttpServletRequest req, Model model, @PathVariable("boardCode") String boardCode) {
+		
+		Board board = articleService.getBoardByCode(boardCode);
 
 		// int loginedMemberId = (int)req.getAttribute("loginedMemberId");
 
@@ -215,7 +221,9 @@ public class ArticleController {
 		 * model.addAttribute("replaceUri","/usr/member/login"); return
 		 * "common/redirect"; }
 		 */
-
+		
+		model.addAttribute("board", board);
+		
 		return "usr/article/write";
 
 	}
@@ -240,7 +248,7 @@ public class ArticleController {
 		int id = articleService.writeArticle(param);
 
 		model.addAttribute("msg", String.format("%d 글이 생성되었습니다.", id));
-		model.addAttribute("replaceUri", "/usr/article-free/list");
+		model.addAttribute("replaceUri", String.format("/usr/article/detail?id=%d",id));
 		return "common/redirect";
 
 	}
