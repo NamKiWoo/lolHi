@@ -142,3 +142,11 @@ updateDate = NOW(),
 `name` = '자유게시판',
 `code` = 'free';
 
+
+#회원 테이블 E-Mail 칼럼 추가
+ALTER TABLE `member` ADD COLUMN EMAIL CHAR(100) AFTER `name`;
+
+#email 칼럼 업데이트
+update `member` 
+set email='afpol@naver.com';
+

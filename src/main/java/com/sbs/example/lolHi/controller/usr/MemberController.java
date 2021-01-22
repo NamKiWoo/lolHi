@@ -1,6 +1,5 @@
 package com.sbs.example.lolHi.controller.usr;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sbs.example.lolHi.dto.Member;
 import com.sbs.example.lolHi.service.MemberService;
-import com.sbs.example.lolHi.util.SqlInjection;
 import com.sbs.example.lolHi.util.Util;
 
 @Controller
@@ -99,6 +97,10 @@ public class MemberController {
 	@RequestMapping("/usr/member/doJoin")	
 	public String doJoin(@RequestParam Map<String, Object> param, Model model) {
 		String loginId = Util.getAsStr(param.get("loginId"), "");
+		String loginPw = Util.getAsStr(param.get("loginPw"), "");
+		String loginPwConfirm = Util.getAsStr(param.get("loginPwConfirm"), "");
+		String name = Util.getAsStr(param.get("name"), "");
+		String email = Util.getAsStr(param.get("email"), "");
 		
 		if(loginId.length() == 0) {
 			//return String.format("<script> alert('로그인 아이디를 입력해주세요.'); history.back(); </script>");
@@ -107,16 +109,14 @@ public class MemberController {
 			return "common/redirect";
 		}
 		
-		String loginPw = Util.getAsStr(param.get("loginPw"), "");
-		
+				
 		if(loginPw.length() == 0) {
 			//return String.format("<script> alert('로그인 비밀번호를 입력해주세요.'); history.back(); </script>");
 			model.addAttribute("msg", String.format("로그인 비밀번호를 입력해주세요."));
 			model.addAttribute("historyBack", true);
 			return "common/redirect";
 		}
-		
-		String loginPwConfirm = Util.getAsStr(param.get("loginPwConfirm"), "");
+				
 		
 		if(loginPwConfirm.length() == 0) {
 			//return String.format("<script> alert('로그인 비밀번호를 입력해주세요.'); history.back(); </script>");
@@ -131,8 +131,7 @@ public class MemberController {
 			model.addAttribute("historyBack", true);
 			return "common/redirect";
 		}
-		String name = Util.getAsStr(param.get("name"), "");
-		
+				
 		if(name.length() == 0) {
 			//return String.format("<script> alert('이름을 입력해주세요.'); history.back(); </script>");
 			model.addAttribute("msg", String.format("이름을 입력해주세요."));
@@ -145,6 +144,14 @@ public class MemberController {
 			//return String.format("<script> alert('%s(은)는 이미 사용중인 아이디입니다.'); history.back(); </script>",loginId);
 			model.addAttribute("msg", String.format("%s(은)는 이미 사용중인 아이디입니다.",loginId));
 			model.addAttribute("historyBack", true);
+			return "common/redirect";
+		}
+						
+		boolean isJoinAvailableNameAndEmail = memberService.isJoinAvailableNameAndEmail(name, email);
+		if(isJoinAvailableNameAndEmail == false) {
+			//return String.format("<script> alert('%s(은)는 이미 사용중인 아이디입니다.'); history.back(); </script>",loginId);
+			model.addAttribute("msg", String.format("이미 가입된 회원의 정보입니다."));
+			model.addAttribute("replaceUri", "/usr/member/findLoginId");
 			return "common/redirect";
 		}
 		

@@ -3,12 +3,12 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sbs.example.lolHi.dao.MemberDao">
-	
+
 	<insert id="join" useGeneratedKeys="true" keyProperty="id">
 		insert into member
-		<set> 
+		<set>
 			regDate = NOW(), updateDate = NOW(),
-		    <if test="loginId !=null">
+			<if test="loginId !=null">
 				loginId = #{loginId},
 			</if>
 			<if test="loginPw !=null">
@@ -17,29 +17,42 @@
 			<if test="name !=null">
 				`name` = #{name},
 			</if>
+			<if test="email !=null">
+				email = #{email},
+			</if>
 		</set>
 	</insert>
-	
+
 	<select id="getMemberByLoginId" resultType="Member">
 		select *
 		from member
 		where loginId = #{loginId}
 	</select>
-	
+
 	<select id="getMemberById" resultType="Member">
 		select *
 		from member
-		where id = #{id}
+		where
+		id = #{id}
 	</select>
-	
+
+	<select id="getMemberByNameAndEmail" resultType="Member">
+		select *
+		from
+		member
+		where `name` = #{name}
+		and email = #{email}
+		LIMIT 1
+	</select>
+
 	<update id="modify">
 		update member
-		<set> 
+		<set>
 			updateDate = NOW(),
 			<if test="name !=null">
 				name = #{name},
-			</if>			
-		</set>		
+			</if>
+		</set>
 		where id = #{id}
 	</update>
 </mapper>
