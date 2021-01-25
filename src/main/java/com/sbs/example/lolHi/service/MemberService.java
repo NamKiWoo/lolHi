@@ -61,12 +61,8 @@ public class MemberService {
 		}
 		
 		Member member = memberDao.getMemberByNameAndEmail(name, email);
-		
-		if(member == null) {
-			return true;
-		}
-		
-		return false;
+			
+		return member == null;
 	}
 
 }
