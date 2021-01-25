@@ -3,7 +3,6 @@ package com.sbs.example.lolHi.util;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.net.URLEncoder;
-import java.util.regex.Pattern;
 
 public class Util {
 
