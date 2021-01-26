@@ -3,10 +3,10 @@ spring:
   profiles:
     active: local # 기본적으로 local이 선택된다는 뜻
   mail:
-    host: smtp.gmail.com
-    port: 587
-    username: afpol77@gmail.com
-    password: avqdthccudtpuqrd
+    host: #smtp.gmail.com
+    port: #587
+    username: #afpol77@gmail.com
+    password: #avqdthccudtpuqrd
     properties:
       mail:
         smtp:
@@ -33,6 +33,7 @@ server:
 custom:
   siteName: 롤하이
   siteMainUri: http://localhost:8085/usr/article-free/list
+  siteLoginUri: http://localhost:8085/usr/member/login
   emailFrom: no-reply@localhost
   emailFromName: 롤하이
   logging:
