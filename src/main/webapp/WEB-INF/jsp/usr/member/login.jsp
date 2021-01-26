@@ -5,6 +5,9 @@
 <c:set var="title" value="로그인" />
 
 <%@ include file="../part/head.jspf" %>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+
 	<script>
 		var loginFormSubmitDone = false;
 		function loginFormSubmit(form) {
@@ -32,7 +35,9 @@
 
 				return;
 			}
-			
+
+			form.loginPw.value = sha256(form.loginPw.value);
+
 			form.submit();
 			loginFormSubmitDone = true;
 		}

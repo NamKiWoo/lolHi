@@ -150,3 +150,8 @@ ALTER TABLE `member` ADD COLUMN EMAIL CHAR(100) AFTER `name`;
 update `member` 
 set email='afpol@naver.com';
 
+#멤버테이블 비밀번호 sha256으로 업데이트, 비밀번호를 평문이 아닌 해싱된 결과를 저장
+SELECT SHA2(loginPw,256) FROM `member`
+
+UPDATE `member` SET loginPw = SHA2(loginPw,256)
+
