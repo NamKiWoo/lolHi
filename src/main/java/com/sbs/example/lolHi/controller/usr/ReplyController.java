@@ -36,8 +36,8 @@ public class ReplyController {
 		int id = replyService.write(param);
 		
 		model.addAttribute("msg", String.format("%d 댓글이 생성되었습니다.", id));
-		//model.addAttribute("replaceUri", String.format("/usr/%s/detail?id=%d", relTypeCode, relId));
-		model.addAttribute("replaceUri", redirectUrl);
+		//model.addAttribute("redirectUrl", String.format("/usr/%s/detail?id=%d", relTypeCode, relId));
+		model.addAttribute("redirectUrl", redirectUrl);
 		
 		return "common/redirect";		
 	}
@@ -71,8 +71,8 @@ public class ReplyController {
 		replyService.deleteReplyById(id);
 				
 		model.addAttribute("msg", String.format("%d 글이 삭제되었습니다.", id));
-		//model.addAttribute("replaceUri", String.format("/usr/%s/detail?id=%s", reply.getRelTypeCode(),reply.getRelId()));
-		model.addAttribute("replaceUri", redirectUrl);
+		//model.addAttribute("redirectUrl", String.format("/usr/%s/detail?id=%s", reply.getRelTypeCode(),reply.getRelId()));
+		model.addAttribute("redirectUrl", redirectUrl);
 		
 		return "common/redirect";
 	}
@@ -135,8 +135,8 @@ public class ReplyController {
 		replyService.modify(param);
 				
 		model.addAttribute("msg", String.format("%d 댓글이 수정되었습니다.", id));
-		//model.addAttribute("replaceUri", String.format("/usr/%s/detail?id=%s", reply.getRelTypeCode(),reply.getRelId()));
-		model.addAttribute("replaceUri", redirectUrl);
+		//model.addAttribute("redirectUrl", String.format("/usr/%s/detail?id=%s", reply.getRelTypeCode(),reply.getRelId()));
+		model.addAttribute("redirectUrl", redirectUrl);
 		
 		return "common/redirect";
 	}

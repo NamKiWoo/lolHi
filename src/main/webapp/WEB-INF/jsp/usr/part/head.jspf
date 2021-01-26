@@ -18,7 +18,7 @@
 			<a href="/usr/article-notice/list">공지사항</a>
 			<a href="/usr/article-free/list">자유게시판</a>
 			<a href="/usr/member/doLogout">로그아웃</a>
-			<a href="/usr/member/modify">회원정보수정</a>
+			<a href="/usr/member/checkLoginPw">회원정보수정</a>
 		</c:if>
 		<c:if test="${not isLogined}">
 			<a href="/usr/article-notice/list">공지사항</a>

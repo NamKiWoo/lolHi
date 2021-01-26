@@ -112,7 +112,7 @@ public class ArticleController {
 		 * if(loginedMemberId == 0) {
 		 * 
 		 * model.addAttribute("msg", "로그인 후 이용해주세요.");
-		 * model.addAttribute("replaceUri","/usr/member/login"); return
+		 * model.addAttribute("redirectUrl","/usr/member/login"); return
 		 * "common/redirect"; }
 		 */
 
@@ -129,7 +129,7 @@ public class ArticleController {
 
 		
 		model.addAttribute("msg", String.format("%d 글이 삭제되었습니다.", id));
-		model.addAttribute("replaceUri", String.format("/usr/article-%s/list", boardCode));
+		model.addAttribute("redirectUrl", String.format("/usr/article-%s/list", boardCode));
 		return "common/redirect";
 
 		// location.href 는 백스페이스를 누르면 삭제 페이지로 이동, location.replace로 해야된다.
@@ -158,7 +158,7 @@ public class ArticleController {
 		 * if(loginedMemberId == 0) {
 		 * 
 		 * model.addAttribute("msg", "로그인 후 이용해주세요.");
-		 * model.addAttribute("replaceUri","/usr/member/login"); return
+		 * model.addAttribute("redirectUrl","/usr/member/login"); return
 		 * "common/redirect"; }
 		 */
 
@@ -189,7 +189,7 @@ public class ArticleController {
 		 * if(loginedMemberId == 0) {
 		 * 
 		 * model.addAttribute("msg", "로그인 후 이용해주세요.");
-		 * model.addAttribute("replaceUri","/usr/member/login"); return
+		 * model.addAttribute("redirectUrl","/usr/member/login"); return
 		 * "common/redirect"; }
 		 */
 
@@ -206,7 +206,7 @@ public class ArticleController {
 
 		model.addAttribute("board", board);
 		model.addAttribute("msg", String.format("%d 글이 수정되었습니다.", id));
-		model.addAttribute("replaceUri", String.format("/usr/article-%s/detail?id=%d", boardCode, id));
+		model.addAttribute("redirectUrl", String.format("/usr/article-%s/detail?id=%d", boardCode, id));
 		return "common/redirect";
 
 		// location.href 는 백스페이스를 누르면 삭제 페이지로 이동, location.replace로 해야된다.
@@ -226,7 +226,7 @@ public class ArticleController {
 		 * if(loginedMemberId == 0) {
 		 * 
 		 * model.addAttribute("msg", "로그인 후 이용해주세요.");
-		 * model.addAttribute("replaceUri","/usr/member/login"); return
+		 * model.addAttribute("redirectUrl","/usr/member/login"); return
 		 * "common/redirect"; }
 		 */
 
@@ -248,7 +248,7 @@ public class ArticleController {
 		 * if(loginedMemberId == 0) {
 		 * 
 		 * model.addAttribute("msg", "로그인 후 이용해주세요.");
-		 * model.addAttribute("replaceUri","/usr/member/login"); return
+		 * model.addAttribute("redirectUrl","/usr/member/login"); return
 		 * "common/redirect"; }
 		 */
 
@@ -257,7 +257,7 @@ public class ArticleController {
 		int id = articleService.writeArticle(param);
 
 		model.addAttribute("msg", String.format("%d 글이 생성되었습니다.", id));
-		model.addAttribute("replaceUri", String.format("/usr/article-%s/detail?id=%d", boardCode, id));
+		model.addAttribute("redirectUrl", String.format("/usr/article-%s/detail?id=%d", boardCode, id));
 		return "common/redirect";
 
 	}

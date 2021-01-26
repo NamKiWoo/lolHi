@@ -21,6 +21,36 @@ public class MemberController {
 	
 	@Autowired	
 	private MemberService memberService;
+	
+	@RequestMapping("/usr/member/checkLoginPw")
+	public String showCheckLoginPw() {
+		
+		return "usr/member/checkLoginPw";
+	}
+	
+	@RequestMapping("/usr/member/doCheckLoginPw")
+	public String doCheckLoginPw(HttpServletRequest req, Model model, String loginPw, String redirectUrl) {
+				
+		Member loginedMember = (Member) req.getAttribute("loginedMember");
+
+		if (loginedMember.getLoginPw().equals(loginPw) == false) {
+			model.addAttribute("historyBack", true);
+			model.addAttribute("msg", "비밀번호가 일치하지 않습니다.");
+			return "common/redirect";
+		}
+
+		//String authCode = memberService.genCheckPasswordAuthCode(loginedMember.getId());
+
+		if (redirectUrl == null || redirectUrl.length() == 0) {
+			redirectUrl = "/usr/home/main";
+		}
+
+		//redirectUri = Util.getNewUri(redirectUri, "checkPasswordAuthCode", authCode);
+
+		model.addAttribute("redirectUrl", redirectUrl);
+
+		return "common/redirect";
+	}
 
 	@RequestMapping("/usr/member/findLoginId") 
 	public String showFindLoginId() {
@@ -123,7 +153,7 @@ public class MemberController {
 		session.setAttribute("loginedMemberId", member.getId());
 		
 		model.addAttribute("msg", String.format("%s님 환영합니다.", member.getName()));
-		model.addAttribute("replaceUri", String.format("/usr/article-free/list"));
+		model.addAttribute("redirectUrl", String.format("/usr/article-free/list"));
 		return "common/redirect";
 		
 		//return String.format("<script> alert('%s님 환영합니다.'); location.replace('/usr/article-free/list'); </script>",member.getName());
@@ -136,7 +166,7 @@ public class MemberController {
 		
 		//return String.format("<script> location.replace('/usr/article-free/list'); </script>");
 		
-		model.addAttribute("replaceUri", "/usr/article-free/list");
+		model.addAttribute("redirectUrl", "/usr/article-free/list");
 		return "common/redirect";
 	}
 	
@@ -202,7 +232,7 @@ public class MemberController {
 		if(isJoinAvailableNameAndEmail == false) {
 			//return String.format("<script> alert('%s(은)는 이미 사용중인 아이디입니다.'); history.back(); </script>",loginId);
 			model.addAttribute("msg", String.format("이미 가입된 회원의 정보입니다."));
-			model.addAttribute("replaceUri", "/usr/member/findLoginId");
+			model.addAttribute("redirectUrl", "/usr/member/findLoginId");
 			return "common/redirect";
 		}
 		
@@ -210,7 +240,7 @@ public class MemberController {
 		
 		//return String.format("<script>alert('%d번 회원이 생성되었습니다.'); location.replace('/usr/article-free/list') </script>",id);
 		model.addAttribute("msg", String.format("가입되었습니다."));
-		model.addAttribute("replaceUri", "/usr/article-free/list");
+		model.addAttribute("redirectUrl", "/usr/article-free/list");
 		return "common/redirect";
 	}
 	
@@ -233,7 +263,7 @@ public class MemberController {
 		memberService.modify(param);
 		
 		model.addAttribute("msg", String.format("수정되었습니다."));
-		model.addAttribute("replaceUri", "/usr/article-free/list");
+		model.addAttribute("redirectUrl", "/usr/article-free/list");
 		
 		return "common/redirect";
 	}
