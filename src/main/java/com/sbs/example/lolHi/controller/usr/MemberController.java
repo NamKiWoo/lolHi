@@ -28,6 +28,36 @@ public class MemberController {
 		return "usr/member/checkLoginPw";
 	}
 	
+	@RequestMapping("/usr/member/doAuthEmail")
+	public String doAuthEmail(Model model, int id, String email, String authCode) {
+		Member member = memberService.getMemberById(id);
+		
+		if (member == null) {
+			model.addAttribute("historyBack", true);
+			model.addAttribute("msg", "존재하지 않는 회원입니다.");
+			return "common/redirect";
+		}
+		if (member.getEmail().equals(email) == false) {
+			model.addAttribute("historyBack", true);
+			model.addAttribute("msg", "이메일 주소가 일치하지 않습니다.");
+			return "common/redirect";
+		}
+		
+		String emailAuthCodeOnDB = memberService.getEmailAuthCode(id);
+		
+		if (authCode.equals(emailAuthCodeOnDB) == false) {
+			model.addAttribute("historyBack", true);
+			model.addAttribute("msg", "인증코드가 일치하지 않거나 만료되었습니다. 관리자에게 문의해주세요");
+			return "common/redirect";
+		}
+		
+		memberService.saveAuthedEmail(id, email);
+				
+		model.addAttribute("msg", "이메일 인증에 성공하였습니다.");
+		model.addAttribute("redirectUrl", "/");
+		return "common/redirect";
+	}
+	
 	@RequestMapping("/usr/member/doCheckLoginPw")
 	public String doCheckLoginPw(HttpServletRequest req, Model model, String loginPw, String redirectUrl) {
 				
@@ -146,6 +176,14 @@ public class MemberController {
 		if (member.getLoginPw().equals(loginPw) == false) {
 			//return String.format("<script> alert('비밀번호를 정확히 입력해주세요'); history.back(); </script>");
 			model.addAttribute("msg", String.format("비밀번호를 정확히 입력해주세요"));
+			model.addAttribute("historyBack", true);
+			return "common/redirect";
+		}
+		
+		String authedEmail = memberService.getAuthedEmail(member.getId());
+		
+		if(authedEmail.equals(member.getEmail()) == false) {
+			model.addAttribute("msg", String.format("이메일 인증 후 시도해주세요."));
 			model.addAttribute("historyBack", true);
 			return "common/redirect";
 		}

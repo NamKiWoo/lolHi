@@ -32,6 +32,7 @@ server:
     include-binding-errors: always
 custom:
   siteName: 롤하이
+  siteUri: http://localhost:8085
   siteMainUri: http://localhost:8085/usr/article-free/list
   siteLoginUri: http://localhost:8085/usr/member/login
   emailFrom: no-reply@localhost
